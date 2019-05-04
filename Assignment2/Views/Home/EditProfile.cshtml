@@ -1,0 +1,132 @@
+﻿@model Assignment2.Models.Users;
+
+
+<script>
+    function checkinput() {
+
+        if (document.getElementById('FirstName').value == "") {
+            alert('please enter your FirstName');
+            document.getElementById('FirstName').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('LastName').value == "") {
+            alert('please enter your LastName');
+            document.getElementById('LastName').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('EmailAddress').value == "") {
+            alert('please enter your EmailAddress');
+            document.getElementById('EmailAddress').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('Password').value == "") {
+            alert('please enter your Password');
+            document.getElementById('Password').style.borderColor = "red";
+            return false;
+        }
+
+
+        if (document.getElementById('DateOfBirth').value == "") {
+            alert('please enter your DateOfBirth');
+            document.getElementById('DateOfBirth').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('City').value == "") {
+            alert('please enter your City');
+            document.getElementById('City').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('Address').value == "") {
+            alert('please enter your Address');
+            document.getElementById('Address').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('PostalCode').value == "") {
+            alert('please enter your PostalCode');
+            document.getElementById('PostalCode').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('Country').value == "") {
+            alert('please enter your Country');
+            document.getElementById('Country').style.borderColor = "red";
+            return false;
+        }
+
+    }
+</script>
+
+
+<div class="container" role="main">
+
+    <div class="page-header">
+        <h2>Edit Profile</h2>
+    </div>
+
+    <form asp-controller="Home" asp-action="EditProfile" method="post" onsubmit="return checkinput()">
+        <input type="hidden" value="@Model.UserId" name="UserId" />
+        <div class="form-group">
+            <label for="FirstName">FirstName</label>
+            <input class="form-control" asp-for="FirstName" />
+        </div>
+
+        <div class="form-group">
+            <label for="LastName">LastName</label>
+            <input class="form-control" asp-for="LastName" />
+        </div>
+
+        <div class="form-group">
+            <label for="EmailAddress">Email Address</label>
+            <input class="form-control" asp-for="EmailAddress" />
+        </div>
+
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <input class="form-control" asp-for="Password" />
+        </div>
+
+        <div class="form-group">
+            <label for="Role">Role</label>
+            <select class="form-control" asp-for="RoleId">
+                <option selected="selected" value="1">General User</option>
+                <option value="2">Admin</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="DateOfBirth">DateOfBirth</label>
+            <input class="form-control" asp-for="DateOfBirth" />
+        </div>
+
+        <div class="form-group">
+            <label for="City">City</label>
+            <input class="form-control"  asp-for="City" />
+        </div>
+
+        <div class="form-group">
+            <label for="Address">Address</label>
+            <input class="form-control" asp-for="Address" />
+        </div>
+
+        <div class="form-group">
+            <label for="PostalCode">PostalCode</label>
+            <input class="form-control" asp-for="PostalCode" />
+        </div>
+
+        <div class="form-group">
+            <label for="Country">Country</label>
+            <input class="form-control" asp-for="Country" />
+        </div>
+
+        <br />
+        <input type="submit" value="Edit Profile" class="btn btn-default" />
+    </form>
+</div>
+
+

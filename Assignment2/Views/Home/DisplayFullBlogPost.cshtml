@@ -1,0 +1,106 @@
+﻿@model Assignment2.Models.BlogPosts;
+@using Microsoft.AspNetCore.Http;
+
+
+<script>
+    function checkinput() {
+
+        if (document.getElementById('Rating').value == "") {
+            alert('please enter your rating');
+            document.getElementById('Rating').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('Content').value == "") {
+            alert('please enter your comment');
+            document.getElementById('Content').style.borderColor = "red";
+            return false;
+        }
+    }
+</script>
+
+<html>
+<body>
+
+    <h2>@Model.Title</h2>
+    <sub>Written by: @Model.Users.FirstName @Model.Users.LastName @Model.Users.EmailAddress</sub>
+    <br />
+    <sub>Posted on: @Model.Posted</sub>
+    <br />
+    <br />
+    <p>@Model.Content</p>
+    <br />
+    @foreach (var image in Model.Photos)
+    {
+        <img src="@image.Url" style="width:50%; height:50%"/>
+    }
+    <br />
+
+    <h4>Comments</h4>
+    @{
+        var i = 0;
+        foreach (var item in @Model.Comments)
+        {
+            if (i % 2 == 0)
+            {
+
+
+                 <div style="width: auto; display: block; border: 1px solid DarkGrey; background-color: LightGrey; margin: 10px 0px 10px 0px; padding: 0px 20px 5px 20px; border-radius: 10px;">
+
+                 <br /> Rating: @item.Rating<br />
+                 <br />@item.Content<br />
+                 <br /><sub>By: @item.Users.FirstName @item.Users.LastName @item.Users.EmailAddress </sub><br /><br />
+                 </div>
+            }
+            else
+            {
+                    <div style="width: auto; display: block; border: 1px solid DarkGrey; margin: 10px 0px 10px 0px; padding: 0px 20px 5px 20px; border-radius: 10px;">
+                     <br /> Rating: @item.Rating<br />
+                        <br />@item.Content<br /><br /><sub>By: @item.Users.FirstName @item.Users.LastName @item.Users.EmailAddress</sub><br /><br />
+                     </div>
+            }
+
+
+            i++;
+
+        }
+    }
+
+    <br />
+    @if (Context.Session.GetString("UserId") == null)
+    {
+        <h4>Log In to Comment</h4>
+        <p><a asp-controller="Home" asp-action="Login">You must Log In to comment</a></p>
+    }
+    else
+    {
+        var uid = Convert.ToInt32(Context.Session.GetString("UserId"));
+
+        <h4>Add Comment</h4>
+        <form asp-controller="Home" asp-action="AddComment" method="post" onsubmit="return checkinput()">
+            <input type="hidden" id="BlogPostId" name="BlogPostId" value="@Model.BlogPostId" />
+
+            <div class="form-group">
+                <label for="Rating">Rating</label>
+                <input class="form-control" type="number" data-val="true" id="Rating" name="Comment.Rating" value="" />
+               
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="Comment.Content">Comment Title</label>
+                <textarea rows="20" class="form-control" data-val="true"  id="Content" name="Comment.Content" value=""></textarea>
+                
+            </div>
+            <div class="form-group">
+                <button type="submit" class="form-control">Comment</button>
+            </div>
+
+        </form>
+    }
+
+
+
+</body>
+</html>
+
+

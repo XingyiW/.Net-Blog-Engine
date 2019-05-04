@@ -1,0 +1,93 @@
+﻿@using Microsoft.AspNetCore.Http;
+@model IEnumerable<Assignment2.Models.BlogPosts>
+@{
+    ViewBag.Title = "Home";
+}
+
+
+<html>
+<body>
+
+    @{
+        var i = 0;
+
+        foreach (var item in Model)
+        {
+            @if (item.IsAvailable == true || (item.IsAvailable == false && Context.Session.GetString("RoleId").Equals("2")))
+            {
+                if (i % 2 == 0)
+                {
+                    <div style="width: auto; display: block; border: 1px solid DarkGrey; margin: 10px 0px 10px 0px; padding: 0px 20px 5px 20px; border-radius: 10px;">
+                        <h3>
+                            <a asp-controller="Home" asp-action="DisplayFullBlogPost" asp-route-id="@item.BlogPostId">@item.Title</a>
+
+                            @if (@Context.Session.GetString("UserId") != null)
+                            {
+                             
+                                @if (@Context.Session.GetString("RoleId").Equals("2"))
+                                {
+                                    <font style="font-size: 12px;">
+                                        <text>(</text>
+                                        <a asp-controller="Home" asp-action="EditBlog" asp-route-id="@item.BlogPostId">Edit</a>
+                                        <text>|</text>
+                                        <a onclick="return confirm('Are you sure?');" asp-controller="Home" asp-action="DeleteBlog" asp-route-id="@item.BlogPostId">Delete</a>
+                                        <text>)</text>
+                                    </font>
+                                }
+                            }
+                        </h3>
+                        <p>
+                            @item.ShortDescription
+                            <br />
+                            @foreach (var photo in item.Photos)
+                            {
+                                <a asp-controller="Home" asp-action="DisplayFullBlogPost" asp-route-id="@item.BlogPostId">
+                                    <img src="@photo.Url" style="width:30%; height:30%" />
+                                </a>
+                            }
+                            <br />
+                            Posted on: @item.Posted
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <div style="width: auto; display: block; border: 1px solid DarkGrey; background-color: LightGrey; margin: 10px 0px 10px 0px; padding: 0px 20px 5px 20px; border-radius: 10px;">
+                        <h3>
+                            <a asp-controller="Home" asp-action="DisplayFullBlogPost" asp-route-id="@item.BlogPostId">@item.Title</a>
+
+                            @if (@Context.Session.GetString("UserId") != null)
+                            {
+                                @if (@Context.Session.GetString("RoleId").Equals("2"))
+                                {
+                                    <font style="font-size: 12px;">
+                                        <text>(</text>
+                                        <a asp-controller="Home" asp-action="EditBlog" asp-route-id="@item.BlogPostId">Edit</a>
+                                        <text>|</text>
+                                        <a onclick="return confirm('Are you sure?');" asp-controller="Home" asp-action="DeleteBlog" asp-route-id="@item.BlogPostId">Delete</a>
+                                        <text>)</text>
+                                    </font>
+                                }
+                            }
+                        </h3>
+                        <p>
+                            @item.ShortDescription
+                            <br />
+                            @foreach (var photo in item.Photos)
+                            {
+                                <a asp-controller="Home" asp-action="DisplayFullBlogPost" asp-route-id="@item.BlogPostId">
+                                    <img src="@photo.Url" style="width:120px; height:180px" />
+                                </a>
+                            }
+                            <br />
+                            Posted on: @item.Posted
+                        </p>
+                    </div>
+                }
+              i++;
+          }
+        }
+    }
+
+</body>
+</html>

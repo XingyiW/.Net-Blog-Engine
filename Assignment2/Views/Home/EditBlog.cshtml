@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewData["Title"] = "EditMovie";
+}
+@model Assignment2.Models.BlogPosts;
+
+
+<script>
+    function checkinput() {
+
+        if (document.getElementById('Title').value == "") {
+            alert('please enter a title');
+            document.getElementById('Title').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('ShortDescription').value == "") {
+            alert('please enter a ShortDescription');
+            document.getElementById('ShortDescription').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('Content').value == "") {
+            alert('please enter content');
+            document.getElementById('Content').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('Posted').value == "") {
+            alert('please enter Posted Time');
+            document.getElementById('Posted').style.borderColor = "red";
+            return false;
+        }
+
+    }
+</script>
+
+<div class="container" role="main">
+
+    <div class="page-header">
+        <h2>Edit Blog</h2>
+    </div>
+
+    <form asp-controller="Home" asp-action="ModifyBlog" enctype="multipart/form-data" method="post" onsubmit="return checkinput()">
+        <input type="hidden" value="@Model.BlogPostId" name="BlogPostId" />
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <input class="form-control" asp-for="Title" />
+        </div>
+
+        <div class="form-group">
+            <label for="ShortDescription">Short Description</label>
+            <input class="form-control" asp-for="ShortDescription" />
+        </div>
+
+        <div class="form-group">
+            <label for="Posted">Posted</label>
+            <input class="form-control" asp-for="Posted" />
+        </div>
+
+        <div class="form-group">
+            <label for="IsAvailable">IsAvailable</label>
+            <input class="form-control" asp-for="IsAvailable" />
+        </div>
+
+        <div class="form-group">
+            <label for="Content">Content</label>
+            <textarea rows="20" class="form-control" data-val="true" data-val-length-max="4000" data-val-required="Blog post content is required" id="Content" asp-for="Content">
+            </textarea>
+        </div>
+
+        <div class="form-group">
+            <input type="file" name="files" multiple />
+        </div>
+
+        <br />
+        <input type="submit" value="Edit Blog" class="btn btn-default" />
+    </form>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <h2>Currently Uploaded Images</h2>
+
+        <div class="col-sm-3">
+            <div>
+                @foreach (var photo in Model.Photos)
+                {
+                    <img src="@photo.Url" style="max-width: 400px;" />
+                    <br />
+                    @photo.Filename
+                    <br />
+                    <a onclick="return confirm('Are you sure you wante to delete this image?');" asp-controller="Home" asp-action="DeletePhoto" asp-route-id="@photo.PhotoId">Delete</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

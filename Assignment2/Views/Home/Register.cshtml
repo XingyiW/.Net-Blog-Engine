@@ -1,0 +1,139 @@
+﻿@model Assignment2.Models.Users;
+
+<script>
+    function checkinput() {
+        if (document.getElementById('FirstName').value == "") {
+            alert('please enter your FirstName');
+            document.getElementById('FirstName').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('LastName').value == "") {
+            alert('please enter your LastName');
+            document.getElementById('LastName').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('EmailAddress').value == "") {
+            alert('please enter your EmailAddress');
+            document.getElementById('EmailAddress').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('Password').value == "") {
+            alert('please enter Password');
+            document.getElementById('Password').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('DateOfBirth').value == "") {
+            alert('please enter DateOfBirth');
+            document.getElementById('DateOfBirth').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('City').value == "") {
+            alert('please enter City');
+            document.getElementById('City').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('PostalCode').value == "") {
+            alert('please enter PostalCode');
+            document.getElementById('PostalCode').style.borderColor = "red";
+            return false;
+        }
+
+        if (document.getElementById('Country').value == "") {
+            alert('please enter Country');
+            document.getElementById('Country').style.borderColor = "red";
+            return false;
+        }
+    }
+
+</script>
+
+
+@if (TempData["Exist"] != null)
+{
+    <div style="width: auto; display: block; border: 1px solid DarkGrey; background-color: #f8ecf8; margin: 10px 0px 10px 0px; padding: 0px 20px 5px 20px; border-radius: 10px;">
+        <span style="color:indianred;"><br /><b>Error!</b> The email is already in the list.<br /><br /></span>
+    </div>
+}
+
+
+<div class="container" role="main">
+
+    <div class="page-header">
+        <h2>Register</h2>
+    </div>
+
+    <form asp-controller="Home" asp-action="CreateUser" method="post" onsubmit="return checkinput()">
+        <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input class="form-control" type="text" data-val="true" id="FirstName" name="User.FirstName" value="" />
+            <span class="text-danger field-validation-valid" data-valmsg-for="User.FirstName" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="LastName">Last Name</label>
+            <input class="form-control" type="text" data-val="true" id="LastName" name="User.LastName" value="" />
+            <span class="text-danger field-validation-valid" data-valmsg-for="User.LastName" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="EmailAddress">Email Address</label>
+            <input class="form-control" type="email" data-val="true" id="EmailAddress" name="User.EmailAddress" value="" ) />
+            @*@Html.ValidationMessageFor(m => m.EmailAddress)*@
+            <span class="text-danger field-validation-valid" data-valmsg-for="User.EmailAddress" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <input class="form-control" type="password" data-val="true" id="Password" name="User.Password" value="" />
+            <span class="text-danger field-validation-valid" data-valmsg-for="User.Password" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Role">Role</label>
+            <select name="User.RoleId" id="User.RoleId" class="form-control">
+                <option selected="selected" value="1">General User</option>
+                <option value="2">Admin</option>
+            </select>
+            <span class="text-danger field-validation-valid" data-valmsg-for="User.RoleId" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="DateOfBirth">DateOfBirth</label>
+            <input class="form-control" type="date" data-val="true" id="DateOfBirth" name="User.DateOfBirth" value="" />
+            <span class="text-danger field-validation-valid" data-valmsg-for="User.DateOfBirth" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="City">City</label>
+            <input class="form-control" type="text" data-val="true" id="City" name="User.City" value="" />
+            <span class="text-danger field-validation-valid" data-valmsg-for="User.City" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Address">Address</label>
+            <input class="form-control" type="text" data-val="true" id="Address" name="User.Address" value="" />
+            <span class="text-danger field-validation-valid" data-valmsg-for="User.Address" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="PostalCode">PostalCode</label>
+            <input class="form-control" type="text" data-val="true" id="PostalCode" name="User.PostalCode" value="" />
+            <span class="text-danger field-validation-valid" data-valmsg-for="User.PostalCode" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Country">Country</label>
+            <input class="form-control" type="text" data-val="true" id="Country" name="User.Country" value="" />
+            <span class="text-danger field-validation-valid" data-valmsg-for="User.Country" data-valmsg-replace="true"></span>
+        </div>
+
+        <br />
+        <input type="submit" value="Register Name" class="btn btn-default" />
+    </form>
+</div>

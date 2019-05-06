@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Lab5.Models.Photo>
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Files";
+}
+
+<div class="container" role="main">
+
+    <div class="page-header">
+        <h2>Image Upload</h2>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <form asp-controller="Home" asp-action="UploadFileNow" enctype="multipart/form-data" method="post">
+                <input type="file" name="files" multiple /> <button name="upload">Upload Now</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+
+            <h2>Currently Uploaded Images</h2>
+
+            @if (Model.Count() == 0)
+            {
+                <p>There are no files to display.</p>
+            }
+            else
+            {
+                <div class="col-sm-3">
+                    <div>
+                        @foreach (var photo in Model)
+                        {
+
+                            <img src="@photo.Url" style="max-width: 400px;" />
+                            <br />
+                            @photo.FileName
+                            <br />
+                            <a onclick="return confirm('Are you sure you wante to delete this image?');" asp-controller="Home" asp-action="DeletePhoto" asp-route-id="@photo.PhotoId">Delete</a>
+
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
